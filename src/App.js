@@ -21,27 +21,7 @@ const App = () => {
  
   return (
     <Router>
-      <Helmet>
-      <Helmet>
-        <title>ZigyStream - Welcome to the Future of Streaming</title>
-        <meta name="description" content="ZigyStream is the ultimate platform for live streaming. Join or start your own stream effortlessly." />
-        <meta name="keywords" content="ZigyStream, live streaming, video streaming, join stream, start stream, live video, streaming platform, video broadcast, live content, stream online, real-time video, live show, video chat, streaming service, live event, stream hosting, video platform, streaming app, video sharing, live broadcasting, interactive streaming, online video, video streaming app, live video chat, professional streaming, stream integration, live streaming solutions, video stream, stream quality, live stream events, video streaming solutions, streaming technology, live stream service, video conference, live stream platform, online streaming, video streaming service, real-time streaming, streaming tools, video content, live video service, video production, streaming apps, live video solutions, video on demand, video sharing platform, live stream technology, video streaming solutions, live event streaming, interactive video, live performance, live video broadcasting, stream management, video broadcasting solutions, online live streaming, video content creation, live show streaming, live video platform, streaming experiences, video streaming technology, live video streaming solutions, video streaming technology solutions, live video management, streaming content, video hosting platform, online video streaming solutions, live event broadcasting, real-time video streaming solutions, video streaming management, live video event solutions, video live streaming, streaming and broadcasting, interactive video streaming, video streaming and hosting" />
 
-        {/* Open Graph Meta Tags for Facebook */}
-        <meta property="og:title" content="ZigyStream - Welcome to the Future of Streaming" />
-        <meta property="og:description" content="ZigyStream is the ultimate platform for live streaming. Join or start your own stream effortlessly." />
-        <meta property="og:image" content="https://yourwebsite.com/images/landing-preview.jpg" />
-        <meta property="og:url" content="https://yourwebsite.com/" />
-        <meta property="og:type" content="website" />
-
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:title" content="ZigyStream - Welcome to the Future of Streaming" />
-        <meta name="twitter:description" content="ZigyStream is the ultimate platform for live streaming. Join or start your own stream effortlessly." />
-        <meta name="twitter:image" content="https://yourwebsite.com/images/landing-preview.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-
-      </Helmet>
-      </Helmet>
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/sign-in" element={user ? <Navigate to="/dashboard" /> : <Login />} />
