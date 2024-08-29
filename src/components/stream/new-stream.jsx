@@ -25,7 +25,7 @@ function generateSharedLinks(roomID, role) {
 export default function App() {
   const user = useSelector((state) => state.auth.user);
   const [hide, setHide] = useState(false);
-  const roomID = randomID(8);
+  const roomID = randomID(8).toString();
   const role = "Host";
   const sharedLinks = generateSharedLinks(roomID, "Host");
   const appID = Number(process.env.REACT_APP_ZEGO_APP_ID);
