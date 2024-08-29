@@ -13,7 +13,8 @@ import {
   Link,
   CardContent,
   Card,
-  Icon
+  Icon,
+  CircularProgress
 } from "@mui/material";
 import Navbar from "../landing/navbar";
 import Footer from "../landing/footer";
@@ -22,7 +23,6 @@ import { setUser } from "../../redux/authReducer";
 import { Helmet } from "react-helmet";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const CustomTextField = ({
   label,
@@ -65,6 +65,7 @@ const Login = () => {
   });
 
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false); // State to manage loader visibility
 
   const dispatch = useDispatch(); // Initialize dispatch
 
@@ -86,8 +87,6 @@ const Login = () => {
       newErrors.password = "Password is required";
       isValid = false;
     }
-
-  
 
     setErrors(newErrors);
     return isValid;
@@ -113,6 +112,8 @@ const Login = () => {
       return;
     }
 
+    setLoading(true); // Show loader
+
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/auth/sign-in`, {
         method: "POST",
@@ -129,18 +130,17 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        
         dispatch(setUser(data.user)); 
-
         localStorage.setItem("token", data.user.token); 
         toast.success("Login successful!");
         window.location.href = "/dashboard"; 
       } else {
-
         toast.error(data.message || "Login failed");
       }
     } catch (err) {
       toast.error("Server error");
+    } finally {
+      setLoading(false); // Hide loader
     }
   };
 
@@ -249,8 +249,9 @@ const Login = () => {
                   type="submit"
                   variant="contained"
                   sx={{ width: "100%" }}
+                  disabled={loading} // Disable button while loading
                 >
-                  Login
+                  {loading ? <CircularProgress size={24} color="inherit" /> : "Login"}
                 </Button>
               </Grid>
               <Grid item xs={12} sx={{ textAlign: "center" }}>

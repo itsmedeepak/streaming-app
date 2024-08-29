@@ -13,6 +13,7 @@ import {
   CardContent,
   Icon,
   Link,
+  CircularProgress
 } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,6 +55,8 @@ const SignUp = () => {
     agreeToTerms: false,
   });
 
+  const [loading, setLoading] = useState(false); // State to manage loader visibility
+
   const navigate = useNavigate(); // Hook for navigation
 
   const handleChange = (prop) => (event) => {
@@ -81,6 +84,8 @@ const SignUp = () => {
       return;
     }
 
+    setLoading(true); // Show loader
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SERVER_URL}/api/auth/sign-up`,
@@ -101,6 +106,8 @@ const SignUp = () => {
       } else {
         toast.error("An unexpected error occurred. Please try again.");
       }
+    } finally {
+      setLoading(false); // Hide loader
     }
   };
 
@@ -215,8 +222,9 @@ const SignUp = () => {
                     type="submit"
                     variant="contained"
                     sx={{ width: "100%" }}
+                    disabled={loading} // Disable button while loading
                   >
-                    Sign Up
+                    {loading ? <CircularProgress size={24} color="inherit" /> : "Sign Up"}
                   </Button>
                 </Grid>
                 <Grid item xs={12} sx={{ textAlign: "center", marginTop: 0 }}>
