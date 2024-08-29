@@ -41,7 +41,7 @@ export default function JoinStream() {
   const randomID = Math.floor(10000000 + Math.random() * 90000000).toString();
 
   const role = "Audience";
-  const appID = process.env.REACT_APP_ZEGO_APP_ID;
+  const appID = Number(process.env.REACT_APP_ZEGO_APP_ID);
   const serverSecret = process.env.REACT_APP_ZEGO_SECRET_SERVER;
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
     appID,

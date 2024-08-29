@@ -28,7 +28,7 @@ export default function App() {
   const roomID = randomID(8);
   const role = "Host";
   const sharedLinks = generateSharedLinks(roomID, "Host");
-  const appID = process.env.REACT_APP_ZEGO_APP_ID;
+  const appID = Number(process.env.REACT_APP_ZEGO_APP_ID);
   const serverSecret = process.env.REACT_APP_ZEGO_SECRET_SERVER;
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
     appID,
