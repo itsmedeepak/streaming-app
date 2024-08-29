@@ -16,22 +16,30 @@ export function getUrlParams(url = window.location.href) {
 export default function JoinStream() {
   const user = useSelector((state) => state.auth.user);
   const [roomID, setRoomID] = useState(getUrlParams().get("roomID"));
+  const [role, setRole] = useState('Audience');
   const [id, setID] = useState(
     getUrlParams().get("roomID") ? getUrlParams().get("roomID") : ""
   );
   const [name, setName] = useState("");
 
   const HandleCheckRoomID = async () => {
+    const data = {
+      userID:user?.id,
+    }
+
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/api/stream/${id}`
+      const response = await axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/api/stream/${id}`,
+        data
       );
 
       if (response.status !== 200) {
         alert("Room ID does not exist");
         return;
       } else {
-        setRoomID(id);
+        console.log(response.data.stream.roomID, response.data.role)
+        setRoomID(response.data.stream.roomID);
+        setRole(response.data.role)
       }
     } catch (error) {
       alert("Error checking room ID");
@@ -39,18 +47,20 @@ export default function JoinStream() {
   };
 
   const randomID = Math.floor(10000000 + Math.random() * 90000000).toString();
-
-  const role = "Audience";
   const appID = Number(process.env.REACT_APP_ZEGO_APP_ID);
   const serverSecret = process.env.REACT_APP_ZEGO_SECRET_SERVER;
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
     appID,
     serverSecret,
     roomID,
-    randomID,
-    name ? name : "User",
-    2000000000
+    user?user.id:randomID,
+    user?user.name:name,
+    20000000
   );
+
+
+
+  
 
   const initializeMeeting = (element) => {
     const zp = ZegoUIKitPrebuilt.create(kitToken);
