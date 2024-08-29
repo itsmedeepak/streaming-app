@@ -85,14 +85,14 @@ export default function JoinStream() {
             <Box
               sx={{
                 width: "100%",
-                maxWidth: 370,
+                maxWidth: 350,
                 margin: "auto",
-                padding: 2,
+                // padding: 2,
                 textAlign: "center",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                height: "100vh",
+                // height: "100vh",
                 gap: 2,
                 marginTop: "150px",
               }}
@@ -130,14 +130,27 @@ export default function JoinStream() {
             </Box>
           </>
         )}
-        {roomID && (
+        {roomID && (<>
+           <Helmet>
+        <title>Join a Stream - ZigyStream</title>
+        <meta
+          name="description"
+          content="Join a live stream on ZigyStream using a unique code and start watching instantly."
+        />
+        <meta
+          name="keywords"
+          content="ZigyStream join stream, watch live stream, video streaming"
+        />
+      </Helmet>
+
+         
           <div
             className="myCallContainer"
             ref={initializeMeeting}
             style={{ height: "100vh" }}
-          ></div>
+          ></div></>
         )}
-      </div>
+      </div> 
     </>
   );
 }
